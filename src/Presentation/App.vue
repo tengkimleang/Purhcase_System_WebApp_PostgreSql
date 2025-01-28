@@ -29,7 +29,7 @@ const createListItem = (icon: string, title: string, value: string) => ({
 });
 
 const navItems = [
-  createListItem("mdi-home-city", "Home", ""),
+  createListItem("mdi-home-city", "Home", "/"),
   createListItem("mdi-purse", "Purchase Order", "purchase-order"),
   // createListItem("mdi-account-group-outline", "Users", "users"),
 ];
