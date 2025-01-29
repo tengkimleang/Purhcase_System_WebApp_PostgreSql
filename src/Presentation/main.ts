@@ -4,10 +4,14 @@ import App from './App.vue'
 import {createVuetify} from "vuetify";
 import '@mdi/font/css/materialdesignicons.css';
 import router from "./router.ts";
+import {VDateInput} from "vuetify/labs/components";
 
 const vuetify = createVuetify({
     icons: {
         defaultSet: 'mdi',
+    },
+    components:{
+        VDateInput,
     },
     theme: {
         defaultTheme: 'light',
