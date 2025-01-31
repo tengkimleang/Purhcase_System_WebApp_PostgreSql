@@ -15,7 +15,7 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   plugins: [
     VueRouter({
-      dts: 'src/typed-router.d.ts',
+      dts: 'src/typed-router.d.ts'
     }),
     Layouts(),
     AutoImport({
