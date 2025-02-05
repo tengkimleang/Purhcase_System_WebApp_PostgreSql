@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 
 // PostgreSQL infrastructure options
-const pool = new Pool({
+export const pool = new Pool({
     user: process.env.DB_USER || 'postgres',
     host: process.env.DB_HOST || 'localhost',
     database: process.env.DB_NAME || 'Purchase_System',
@@ -11,11 +11,9 @@ const pool = new Pool({
 
 export async function connectToDatabase() {
     try {
-        const client = await pool.connect();
-        console.log('Connected to PostgreSQL database successfully.');
-        console.log("Hello");
+        await pool.connect();
         // Always release the client back to the pool after use
-        client.release();
+        // client.release();
     } catch (error) {
         console.error('Failed to connect to the database.', error);
         process.exit(1); // Exit the process with failure
