@@ -20,7 +20,7 @@
               List
             </v-btn>
             &nbsp;
-            <v-btn prepend-icon="mdi-content-save">
+            <v-btn prepend-icon="mdi-content-save" v-on:click="onSave">
               Save
             </v-btn>
           </div>
@@ -90,67 +90,9 @@
 
 
 <script>
+import {PurchaseServiceKey} from "../../application/injection-keys";
+
 const desserts = [
-  {
-    productCode: 'Frozen Yogurt',
-    productName: 159,
-    qty: 6.0,
-    unitPrice: 24,
-  },
-  {
-    productCode: 'Jelly bean',
-    productName: 375,
-    qty: 0.0,
-    unitPrice: 94,
-  },
-  {
-    productCode: 'KitKat',
-    productName: 518,
-    qty: 26.0,
-    unitPrice: 65,
-  },
-  {
-    productCode: 'Eclair',
-    productName: 262,
-    qty: 16.0,
-    unitPrice: 23,
-  },
-  {
-    productCode: 'Gingerbread',
-    productName: 356,
-    qty: 16.0,
-    unitPrice: 49,
-  },
-  {
-    productCode: 'Ice cream sandwich',
-    productName: 237,
-    qty: 9.0,
-    unitPrice: 37,
-  },
-  {
-    productCode: 'Lollipop',
-    productName: 392,
-    qty: 0.2,
-    unitPrice: 98,
-  },
-  {
-    productCode: 'Cupcake',
-    productName: 305,
-    qty: 3.7,
-    unitPrice: 67,
-  },
-  {
-    productCode: 'Honeycomb',
-    productName: 408,
-    qty: 3.2,
-    unitPrice: 87,
-  },
-  {
-    productCode: 'Donut',
-    productName: 452,
-    qty: 25.0,
-    unitPrice: 51,
-  },
 ]
 
 const FakeAPI = {
@@ -180,6 +122,19 @@ const FakeAPI = {
 }
 
 export default {
+  setup(){
+    // Inject the service with type safety
+    const purchaseService = inject(PurchaseServiceKey)
+
+    if (!purchaseService) {
+      throw new Error('Purchase_Service not provided')
+    }else{
+      console.log(purchaseService);
+    }
+    return {
+      purchaseService
+    }
+  },
   data: () => ({
     itemsPerPage: 6,
     headers: [
@@ -206,6 +161,24 @@ export default {
         this.loading = false
       })
     },
+    async onSave() {
+      await this.purchaseService.insert(
+        {
+          vendor_code:"KRort",
+          vendor_name:"KRort",
+          purchase_date:"2024-01-01",
+          ship_to:"PP",
+          remarks:"I am testing to create PO",
+          lines:[
+            {
+              product_code:"Milk-99999999999998",
+              product_name: "Milk-My-Boy",
+              qty:10,
+              "unit_price":2500
+            }
+          ]
+        });
+    }
   },
 }
 </script>

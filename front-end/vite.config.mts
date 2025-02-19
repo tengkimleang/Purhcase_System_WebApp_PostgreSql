@@ -6,7 +6,7 @@ import Layouts from 'vite-plugin-vue-layouts'
 import Vue from '@vitejs/plugin-vue'
 import VueRouter from 'unplugin-vue-router/vite'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-
+import Pages from 'vite-plugin-pages'
 // Utilities
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
@@ -14,34 +14,38 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    VueRouter({
-      dts: 'src/typed-router.d.ts'
+    Layouts({
+      layoutsDirs: 'src/presentation/layouts',
+      defaultLayout: 'default',
     }),
-    Layouts(),
     AutoImport({
       imports: [
         'vue',
         {
-          'vue-router/auto': ['useRoute', 'useRouter'],
+          './src/presentation': ['useRoute', 'useRouter'],
         }
       ],
-      dts: 'src/auto-imports.d.ts',
+      dts: './src/auto-imports.d.ts',
       eslintrc: {
         enabled: true,
       },
       vueTemplate: true,
     }),
     Components({
+      dirs: ['src/presentation/components'],
       dts: 'src/components.d.ts',
     }),
     Vue({
       template: { transformAssetUrls },
     }),
+    Pages({
+      dirs: 'src/presentation/vue-router', // Ensure it points to the correct directory
+    }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify({
       autoImport: true,
       styles: {
-        configFile: 'src/styles/settings.scss',
+        configFile: 'src/presentation/styles/settings.scss',
       },
     }),
     Fonts({
@@ -56,7 +60,8 @@ export default defineConfig({
   define: { 'process.env': {} },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@': fileURLToPath(new URL('src/presentation', import.meta.url)),
+      // '@':'/src',
     },
     extensions: [
       '.js',

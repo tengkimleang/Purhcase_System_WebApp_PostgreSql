@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-responsive>
-      <router-view></router-view>
+      <router-view />
     </v-responsive>
   </v-app>
 </template>

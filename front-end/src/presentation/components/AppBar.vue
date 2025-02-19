@@ -49,8 +49,10 @@
 
 <script setup lang="ts">
 // Access the Vue Router instance
-const router = useRouter();
 // Extracted reusable constants
+import router from "../router/index";
+// const router = useRouter();
+
 const AVATAR_URL = "https://randomuser.me/api/portraits/men/85.jpg"; // Centralized avatar URL
 
 // Ref function for navigating to routes

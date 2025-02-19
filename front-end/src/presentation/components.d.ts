@@ -11,7 +11,7 @@ declare module 'vue' {
     AppFooter: typeof import('./components/AppFooter.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     ListPurchaseOrder: typeof import('./components/PurhcaseOrder/ListPurchaseOrder.vue')['default']
-    PurhcaseOrder: typeof import('./components/PurhcaseOrder/PurhcaseOrder.vue')['default']
+    PurhcaseOrder: typeof import('./components/PurhcaseOrder/PurhcaseOrder.vue.js')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
