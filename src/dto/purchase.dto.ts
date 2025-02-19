@@ -1,3 +1,4 @@
+import {PurchaseRowDto} from "./purchase_row.dto";
 
 export class PurchaseDto {
     // purchase_number, vendor_code, vendor_name, purchase_date, ship_to, remarks
@@ -7,5 +8,5 @@ export class PurchaseDto {
     purchase_date:Date;
     ship_to:string;
     remarks:string;
-
+    lines:PurchaseRowDto[];
 }

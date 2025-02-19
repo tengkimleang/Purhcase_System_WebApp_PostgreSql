@@ -1,4 +1,5 @@
-import { Entity,PrimaryGeneratedColumn,Column } from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column,OneToMany } from "typeorm";
+import {PurchaseRow} from "./PurchaseRow";
 
 @Entity("Tbl_Purchases")
 export class Purchase {

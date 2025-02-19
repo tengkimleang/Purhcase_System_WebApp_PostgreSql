@@ -5,12 +5,13 @@ import {AppService} from "../application/app.service";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {typeOrmModule} from "../infrastructure/pg_connection";
 import {Purchase} from "../domain/Purchase";
+import {PurchaseRow} from "../domain/PurchaseRow";
 
 
 @Module({
     imports: [
         typeOrmModule,
-        TypeOrmModule.forFeature([Purchase])
+        TypeOrmModule.forFeature([Purchase,PurchaseRow])
     ],
     controllers: [PurchaseController],
     providers: [PurchaseService,AppService],

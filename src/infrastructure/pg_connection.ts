@@ -1,6 +1,7 @@
 import { Pool } from 'pg';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {Purchase} from "../domain/Purchase";
+import {PurchaseRow} from "../domain/PurchaseRow";
 
 // PostgreSQL infrastructure options
 export const connectionString = {
@@ -19,6 +20,6 @@ export const typeOrmModule =  TypeOrmModule.forRoot({
     username:connectionString.user,
     password:connectionString.password,
     database:connectionString.database,
-    synchronize:true,
-    entities:[Purchase]
+    synchronize:false,
+    entities:[Purchase,PurchaseRow]
 });

@@ -2,6 +2,7 @@ import {Body, Controller, Post} from "@nestjs/common";
 import {PurchaseService} from "../application/purhcase.service";
 import {PurchaseDto} from "../dto/purchase.dto";
 import {Purchase} from "../domain/Purchase";
+import {PurchaseRow} from "../domain/PurchaseRow";
 
 
 @Controller("purchase")
@@ -10,6 +11,7 @@ export class PurchaseController {
 
     @Post("insert")
     async insert(@Body() purchaseDto:PurchaseDto):Promise<any> {
+        console.log(purchaseDto);
         const purchase = new Purchase();
         purchase.purchase_number = purchaseDto.purchase_number;
         purchase.vendor_code = purchaseDto.vendor_code;
@@ -17,6 +19,14 @@ export class PurchaseController {
         purchase.purchase_date = new Date(purchaseDto.purchase_date); // Convert string to Date
         purchase.ship_to = purchaseDto.ship_to;
         purchase.remarks = purchaseDto.remarks;
-        return await this.purchaseService.insert(purchase);
+        const purchaseRow = purchaseDto.lines.map(x => ({
+            DocEntry: 0, // Placeholder, will be set in the service
+            LineId: 0,   // Placeholder, will be set in the service
+            ProductCode: x.product_code,
+            ProductName: x.product_name,
+            Qty: x.qty,
+            UnitPrice: x.unit_price,
+        } as PurchaseRow));
+        return await this.purchaseService.insert(purchase,purchaseRow);
     }
 }
